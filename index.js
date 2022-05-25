@@ -85,6 +85,17 @@ const run = async () => {
       const reviews = await cursor.toArray();
       res.send(reviews.reverse());
     });
+    app.post("/review", async (req, res) => {
+      const review = req.body;
+    
+      const result = await reviewCollection.insertOne(review);
+      res.send(result);
+    });
+    app.post("/product", async (req, res) => {
+      const product = req.body;
+      const result = await productsCollection.insertOne(product);
+      res.send(result);
+    });
 
 
   } finally {
