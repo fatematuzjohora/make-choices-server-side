@@ -68,6 +68,25 @@ const run = async () => {
       }
     };
    
+    app.post("/create-payment-intent", async (req, res) => {
+      const service = req.body;
+      const price = service.price;
+      const amount = price * 100;
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount,
+        currency: "usd",
+        payment_method_types: ["card"],
+      });
+      res.send({ clientSecret: paymentIntent.client_secret });
+    });
+    app.get("/review", async (req, res) => {
+      const query = {};
+      const cursor = reviewCollection.find(query);
+      const reviews = await cursor.toArray();
+      res.send(reviews.reverse());
+    });
+
+
   } finally {
     // client.close();
   }
@@ -75,7 +94,7 @@ const run = async () => {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-  res.send("Hello Ns World!");
+  res.send("Hello World");
 });
 
 app.listen(port, () => {
