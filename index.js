@@ -186,6 +186,62 @@ app.put("/user/:email", async (req, res) => {
   );
   res.send({ result, token });
 });
+app.put("/purchase/:id", (req, res) => {
+  const id = req.params.id;
+  const total = req.body;
+  const filter = { _id: ObjectId(id) };
+  const options = { upsert: true };
+  const updateDoc = {
+    $set: {
+      name: total.name,
+      productName: total.productName,
+      phone: total.phone,
+      quantity: total.quantity,
+      price: total.price,
+      email: total.email,
+    },
+  };
+
+  const result = purchaseCollection.updateOne(filter, updateDoc, options);
+  res.send(result);
+});
+app.patch("/purchase/:id", async (req, res) => {
+  const id = req.params.id;
+  const payment = req.body;
+  const filter = { _id: ObjectId(id) };
+  const updatedDoc = {
+    $set: {
+      paid: true,
+      transactionId: payment.transactionId,
+    },
+  };
+
+  const result = await paymentCollection.insertOne(payment);
+  const updatedPurchase = await purchaseCollection.updateOne(
+    filter,
+    updatedDoc
+  );
+  res.send(updatedPurchase);
+});
+app.get("/purchase/:id", async (req, res) => {
+  const id = req.params.id;
+  const query = { _id: ObjectId(id) };
+  const products = await purchaseCollection.findOne(query);
+  res.send(products);
+});
+app.get("/purchase", async (req, res) => {
+  const query = {};
+  const cursor = purchaseCollection.find(query);
+  const purchases = await cursor.toArray();
+  res.send(purchases);
+});
+app.get("/purchase/:email", async (req, res) => {
+  const email = req.params.email;
+  const query = { email: email };
+  const cursor = purchaseCollection.find(query);
+  const purchases = await cursor.toArray();
+  res.send(purchases);
+});
   } finally {
     // client.close();
   }
