@@ -109,6 +109,10 @@ app.delete("/product/:id", async (req, res) => {
   const result = await productsCollection.deleteOne(query);
   res.send(result);
 });
+app.get("/user", async (req, res) => {
+  const users = await userCollection.find().toArray();
+  res.send(users);
+});
 
 
   } finally {
