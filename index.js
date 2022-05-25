@@ -96,6 +96,19 @@ const run = async () => {
       const result = await productsCollection.insertOne(product);
       res.send(result);
     });
+    app.get("/product/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const product = await productsCollection.findOne(query);
+      res.send(product);
+    });
+    
+app.delete("/product/:id", async (req, res) => {
+  const id = req.params.id;
+  const query = { _id: ObjectId(id) };
+  const result = await productsCollection.deleteOne(query);
+  res.send(result);
+});
 
 
   } finally {
