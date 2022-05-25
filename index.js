@@ -130,6 +130,19 @@ app.put("/profile/:email", async (req, res) => {
   const result = profileCollection.updateOne(filter, updateDoc, options);
   res.send(result);
 });
+app.get("/profile/:email", async (req, res) => {
+  const email = req.params.id;
+  const profile = req.body;
+  const filter = { email: email };
+  const result = await profileCollection.findOne(filter);
+  res.send(result);
+});
+app.get("/profile/:user.email", async (req, res) => {
+  const user = req.params.user;
+  const query = { email: user };
+  const profile = await profileCollection.findOne(query);
+  res.send(profile);
+});
 
   } finally {
     // client.close();
