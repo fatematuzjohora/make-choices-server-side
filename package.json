@@ -1,12 +1,11 @@
 {
   "name": "server-site",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "start-dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +15,17 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^4.6.0"
-  }
+    "mongodb": "^4.6.0",
+    "nodemon": "^2.0.16",
+    "stripe": "^9.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/programming-hero-web-course1/manufacturer-website-server-side-fatematuzjohora.git"
+  },
+  "bugs": {
+    "url": "https://github.com/programming-hero-web-course1/manufacturer-website-server-side-fatematuzjohora/issues"
+  },
+  "homepage": "https://github.com/programming-hero-web-course1/manufacturer-website-server-side-fatematuzjohora#readme",
+  "description": ""
 }
